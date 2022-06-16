@@ -1,4 +1,6 @@
-import {GET_PRODUCT, GET_PRODUCT_SUCCESS} from './types';
+import {GET_PRODUCT, SET_PRODUCT} from './types';
+import { persistReducer } from 'redux-persist';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initialState = {
     products: []
@@ -6,14 +8,19 @@ const initialState = {
 
 function productReducer(state = initialState, action = {}) {
     switch (action.type) {
-        case GET_PRODUCT_SUCCESS:
+        case SET_PRODUCT:
             return {
                 ...state,
-                payload: action.payload
+                products: action.products
             };
         default:
             return state;
     }
 };
 
-export default productReducer;
+const persistConfig = {
+    key: 'products',
+    storage: AsyncStorage,
+};
+
+export default persistReducer(persistConfig, productReducer);
