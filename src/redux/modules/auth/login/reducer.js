@@ -1,17 +1,31 @@
-import {GET_PRODUCT, SET_PRODUCT} from './types';
+import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE} from './types';
 import { persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initialState = {
-    products: []
+    loading: false,
+    user: [],
+    error: null
 }
 
-function productReducer(state = initialState, action = {}) {
+function authReducer(state = initialState, action = {}) {
     switch (action.type) {
-        case SET_PRODUCT:
+        case LOGIN_REQUEST:
             return {
                 ...state,
-                products: action.products
+                loading: true
+            };
+        case LOGIN_SUCCESS:
+            return {
+                ...state,
+                user: action.response,
+                loading: false
+            };
+        case LOGIN_FAILURE:
+            return {
+                ...state,
+                error: action.error,
+                loading:false
             };
         default:
             return state;
@@ -19,8 +33,8 @@ function productReducer(state = initialState, action = {}) {
 };
 
 const persistConfig = {
-    key: 'products',
+    key: 'user',
     storage: AsyncStorage,
 };
 
-export default persistReducer(persistConfig, productReducer);
+export default persistReducer(persistConfig, authReducer);

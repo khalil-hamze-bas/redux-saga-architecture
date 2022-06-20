@@ -5,6 +5,7 @@ import productReducer from './modules/products/reducer';
 import rootSaga from './rootSagas';
 
 const cr = combineReducers({
+    auth: authReducer,
     products: productReducer
 });
 

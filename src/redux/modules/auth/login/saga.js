@@ -1,18 +1,18 @@
-import { call, put, take, takeEvery } from 'redux-saga/effects';
-import { getProduct, setProduct } from './actions';
-import { GET_PRODUCT } from './types';
+import { call, put, take, takeEvery, takeLatest } from 'redux-saga/effects';
+import { login } from './actions';
+// import { GET_PRODUCT } from './types';
 import * as API from '@api';
+import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS } from './types';
 
-function* fetchProduct(action) {
+function* login(action) {
     try {
-        const products = yield call(API.fetchProducts);
-        yield put(setProduct(products));
-        return products;
+        const response = yield call(API.login(action));
+        yield put({ type: LOGIN_SUCCESS , user});
     } catch (error) {
-        console.log('Products', error);
+        yield put({ type: LOGIN_FAILURE , error: error.message});
     }
 }
 
-export function* watchFetchProduct() {
-    yield takeEvery(GET_PRODUCT, fetchProduct);
+export function* watchLogin() {
+    yield takeLatest(LOGIN_REQUEST, login);
 }
