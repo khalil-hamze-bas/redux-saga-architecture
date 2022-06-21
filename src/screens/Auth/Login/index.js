@@ -10,10 +10,15 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import { useSelector, useDispatch } from "react-redux";
+import {login} from '../../../redux/modules/auth/login/actions'
  
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch()
+  const onLogin = (value) => { dispatch(login(value)) }
  
   return (
     <View style={styles.container}>
@@ -43,7 +48,10 @@ export default function Login({ navigation }) {
       </TouchableOpacity>
  
       <TouchableOpacity
-        onPress={() => {navigation.navigate('Home')}}
+        onPress={() => {
+          // navigation.navigate('Home')
+          onLogin()
+        }}
         style={styles.loginBtn}>
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>

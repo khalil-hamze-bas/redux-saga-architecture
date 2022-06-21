@@ -1,6 +1,5 @@
 import { call, put, take, takeEvery, takeLatest } from 'redux-saga/effects';
-import { login } from './actions';
-// import { GET_PRODUCT } from './types';
+
 import * as API from '@api';
 import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS } from './types';
 

@@ -9,6 +9,7 @@ export const fetchProducts = async () => {
 };
 
 export const login = async(user) => {
+    console.log(user.email);
     return {
         email: user.email,
         password: user.password

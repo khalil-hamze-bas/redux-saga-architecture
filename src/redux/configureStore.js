@@ -2,6 +2,7 @@ import { legacy_createStore as createStore, combineReducers, applyMiddleware } f
 import { persistStore } from 'redux-persist';
 import createSagaMiddleware from '@redux-saga/core';
 import productReducer from './modules/products/reducer';
+import authReducer from './modules/auth/login/reducer';
 import rootSaga from './rootSagas';
 
 const cr = combineReducers({
